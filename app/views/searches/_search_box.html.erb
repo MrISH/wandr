@@ -1,0 +1,9 @@
+<div class="center">
+  <div id='search_field'>
+    <%= form_tag({:action => 'do_search'}) do %>
+      <%= text_field_tag 'search_conditions', (params[:search_conditions] || ''), :placeholder => "Enter search here" %>
+    <% end %>
+    <%= submit_tag 'search' %>
+  </div>
+</div>
+<br />
