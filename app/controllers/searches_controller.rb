@@ -40,9 +40,7 @@ class SearchesController < ApplicationController
     @flickr_urls, @pages, @page = flickrAPI(params[:search_conditions])
 
     respond_to do |format|
-      # format.html { render :render_results }
-      # format.js { render :partial => 'results', :content_type => 'text/html' }
-      format.js
+      format.js {}
     end
   end
 
