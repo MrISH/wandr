@@ -38,14 +38,18 @@ class SearchesController < ApplicationController
 
   def do_search
     @flickr_urls, @pages, @page = flickrAPI(params[:search_conditions])
-    render :action => 'results'
-  end
 
-  def results
-
+    respond_to do |format|
+      # format.html { render :render_results }
+      # format.js { render :partial => 'results', :content_type => 'text/html' }
+      format.js
+    end
   end
 
   def update_list_items
     @flickr_urls
+    respond_to do |format|
+      format.js { render :results }
+    end
   end
 end

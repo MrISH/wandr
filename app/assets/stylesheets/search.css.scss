@@ -11,14 +11,16 @@
   float:left;
 }
 
-#search_field{
+#search_field {
   float:center;
+  background-color:#0000aa;
+  width:100%;
+  height:80px;
+  text-align:center;
 }
 
-.center
-{
-margin-left:auto;
-margin-right:auto;
-width:100%;
-background-color:#0000aa;
+.center {
+  margin-left:auto;
+  margin-right:auto;
+  -webkit-perspective: 800;
 }

@@ -6,8 +6,8 @@ Wandr::Application.routes.draw do
   root :to => 'searches#index'
   # root 'searches#index'
   get 'searches' => 'searches#index'
-  post 'do_search' => 'searches#do_search'
   get 'results' => 'searches#results'
+  post 'do_search' => 'searches#do_search'
 
   # resources :searches
   # resources :searches do
