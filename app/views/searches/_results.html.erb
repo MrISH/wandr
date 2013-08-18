@@ -1,16 +1,28 @@
-<style>
-	body{font:12px/1.2 Verdana, sans-serif; padding:0 10px;}
-	a:link, a:visited{text-decoration:none; color:#416CE5; border-bottom:1px solid #416CE5;}
-	h2{font-size:13px; margin:15px 0 0 0;}
-</style>
-
 <script>
 	jQuery(document).ready(function(){
 		jQuery(".result").colorbox({rel:'result'});
 	});
 </script>
 
-<% @flickr_urls.each do |url| %>
-  <!-- <a class="group1" href="<%= url %>"><img src='<%= url %>' height='300px'/></a> -->
-  <a class="result" href="<%= url %>"><img src='<%= url %>' height='200px'/></a>
+<% unless @flickr_urls.blank? %>
+  <div id='' style='text-align:center;width:940px;'>
+      Page: <%= @current_page %> of <%= @number_of_pages %>
+  </div>
+  <div id='paginator' style='text-align:center;width:940px;'>
+    <%= (link_to 'last', {action: 'do_search'}, remote: true, method: :post, html: {search_conditions: params[:search_conditions], page: @current_page - 1, onclick: "$('#loading_message').modal({autoOpen: true, show: { effect: 'fadeIn', duration: 1000 }});"}) unless @current_page == 1 %>
+    <% @pages_to_link_to.each do |p| %>
+      <%= p == @current_page ? p : link_to(p, {action: 'do_search'}, remote: true, method: :post, html: {search_conditions: params[:search_conditions], page: p, onclick: "$('#loading_message').modal({autoOpen: true, show: { effect: 'fadeIn', duration: 1000 }});"}) %>
+    <% end %>
+    <%= (link_to 'next', {action: 'do_search'}, remote: true, method: :post, html: {search_conditions: params[:search_conditions], page: @current_page + 1, onclick: "$('#loading_message').modal({autoOpen: true, show: { effect: 'fadeIn', duration: 1000 }});"}) unless @current_page == @number_of_pages %>
+  </div>
 <% end %>
+
+<div style='text-align:center;width:940px;'>
+  <% @flickr_urls.each do |url| %>
+    <div style="display:inline-block;">
+      <a class='result' href="<%= url %>">
+        <img src='<%= url %>' alt='' style='height:100px;'/>
+      </a>
+    </div>
+  <% end %>
+</div>

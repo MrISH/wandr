@@ -1,14 +1,24 @@
-<div class="center">
-  <div id='search_field'>
-    <br />
-    <%= form_tag({:action => 'do_search'}, remote: true) do %>
-      <%= text_field_tag 'search_conditions', (params[:search_conditions] || ''), :placeholder => "Enter search here" %>
-    <% end %>
-    <%= submit_tag 'search' %>
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div id='search_field' class='navbar-inner'>
+    <div class='container'>
+      <a class='brand' href="http://pacific-wildwood-7855.herokuapp.com">Wandr</a>
+      <%= form_tag({action: 'do_search'}, remote: true, class: 'navbar-form') do %>
+        <%= text_field_tag 'search_conditions', (params[:search_conditions] || ''), placeholder: "Enter search here" %>
+        <%= button_tag 'search', {class: 'btn', onclick: "$('#loading_message').modal({autoOpen: true, show: { effect: 'fadeIn', duration: 1000 }});"} %>
+      <% end %>
+    </div>
   </div>
 </div>
-<br />
 
 
-<div id="results">
-<div>
+<div class='container'>
+  <section id='media'>
+    <div id="results" style="position:relative;top:100px;">
+    <div>
+  </section>
+</div>
+
+<div id='loading_message' class="modal hide fade in" style="display:none;">
+  <img src='assets/loading_message.gif' alt=''/>
+</div>
+
