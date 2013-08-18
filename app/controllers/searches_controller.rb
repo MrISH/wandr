@@ -1,6 +1,6 @@
 class SearchesController < ApplicationController
 
-  def flickrAPI(search_conditions, page = 1)
+  def flickrAPI(search_conditions, page)
     require 'net/http'
     require 'uri'
     require 'rexml/document'
@@ -31,6 +31,7 @@ class SearchesController < ApplicationController
 
 
   def index
+
   end
 
   def do_search
@@ -51,8 +52,4 @@ class SearchesController < ApplicationController
     end
   end
 
-  def update_list_items
-    flickrAPI(params[:search_conditions], params[:page])
-    do_search
-  end
 end
