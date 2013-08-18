@@ -35,17 +35,18 @@ class SearchesController < ApplicationController
   end
 
   def do_search
-    @flickr_urls, @number_of_pages, @current_page = flickrAPI(params[:search_conditions], params[:page])
+    @search_conditions = params[:search_conditions]
+    @flickr_urls, @number_of_pages, @current_page = flickrAPI(@search_conditions, params[:page])
 
     @current_page = @current_page.to_i
     @number_of_pages = @number_of_pages.to_i
 
-    first = @current_page < 10 ? (1..@current_page).to_a : (1..3).to_a
-    middle_1 = (@current_page < 10 ? [] : ((@current_page - 10)..@current_page).to_a)
-    middle_2 = (@current_page > (@number_of_pages - 10) ? [] : (@current_page..(@current_page + 10))).to_a
-    last = ((@number_of_pages - 3)..@number_of_pages).to_a
 
-    @pages_to_link_to = (first + middle_1 + middle_2 + last).uniq
+    first_three = (1..([3, @number_of_pages].min))
+    middle_chunk = ([@current_page - 10, 1].max)..([@current_page + 10, @number_of_pages].min)
+    last_three = (([@number_of_pages - 2, 1].max)..@number_of_pages)
+
+    @pages_to_link_to = (first_three.to_a + middle_chunk.to_a + last_three.to_a).uniq
 
     respond_to do |format|
       format.js {}
