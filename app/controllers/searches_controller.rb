@@ -1,5 +1,5 @@
 class SearchesController < ApplicationController
-  include FlikrApi
+  include FlickrApi
 
   def index
 

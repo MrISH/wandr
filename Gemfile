@@ -21,4 +21,5 @@ group :test do
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'selenium-webdriver'
+  gem 'launchy'
 end
