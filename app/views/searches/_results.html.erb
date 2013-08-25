@@ -2,6 +2,7 @@
 	jQuery(document).ready(function(){
 		jQuery(".result").colorbox({rel:'result'});
 	});
+
 </script>
 
 <% unless @flickr_urls.blank?  %>
@@ -11,13 +12,13 @@
   </div>
 
   <div id='paginator' style='text-align:center;width:940px;'>
-    <%= link_to('last', do_search_path(search_conditions: params[:search_conditions], page: @current_page - 1), remote: true, method: :post, onclick: "$('#loading_message').modal({autoOpen: true, show: { effect: 'fadeIn', duration: 1000 }});") unless @current_page == 1 %>
+    <%= link_to('last', do_search_path(search_conditions: params[:search_conditions], page: @current_page - 1), remote: true, method: :post, onclick: "show_wait_message();" ) unless @current_page == 1 %>
 
     <% @pages_to_link_to.each do |p| %>
-      <%= p == @current_page ? p : link_to(p, do_search_path(search_conditions: params[:search_conditions], page: p), remote: true, method: :post, onclick: "$('#loading_message').modal({autoOpen: true, show: { effect: 'fadeIn', duration: 1000 }});") %>
+      <%= p == @current_page ? p : link_to(p, do_search_path(search_conditions: params[:search_conditions], page: p), remote: true, method: :post, onclick: "show_wait_message();") %>
     <% end %>
 
-    <%= link_to('next', do_search_path(search_conditions: params[:search_conditions], page: @current_page + 1), remote: true, method: :post, onclick: "$('#loading_message').modal({autoOpen: true, show: { effect: 'fadeIn', duration: 1000 }});") unless @current_page == @number_of_pages %>
+    <%= link_to('next', do_search_path(search_conditions: params[:search_conditions], page: @current_page + 1), remote: true, method: :post, onclick: "show_wait_message();") unless @current_page == @number_of_pages %>
   </div>
 
 <% end %>

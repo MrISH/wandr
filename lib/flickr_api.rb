@@ -34,15 +34,18 @@ module FlickrApi
     # load xml_data into REXML for parsing
     doc = REXML::Document.new(xml_data)
 
-    # loop through and parse each element and turn it into a URL
-    doc.root.elements[1].each_element { |e|
-      url = "http://farm" + e.attributes['farm'] + ".static.flickr.com/" + e.attributes['server'] + "/" + e.attributes['id'] + "_" + e.attributes['secret'] + ".jpg";
-      flickr_urls.push(url)
-    }
+    # check if response was blank
+    unless(doc.root.blank?)
+      # loop through and parse each element and turn it into a URL
+      doc.root.elements[1].each_element { |e|
+        url = "http://farm" + e.attributes['farm'] + ".static.flickr.com/" + e.attributes['server'] + "/" + e.attributes['id'] + "_" + e.attributes['secret'] + ".jpg";
+        flickr_urls.push(url)
+      }
+    end
     # get total page count
-    number_of_pages = doc.root.elements[1].attributes['pages']
+    number_of_pages = doc.root.elements[1].attributes['pages'] rescue "0"
     # get current page number
-    current_page = doc.root.elements[1].attributes['page']
+    current_page = doc.root.elements[1].attributes['page'] rescue "1"
     # return urls, total page number, and current page number
     return flickr_urls, number_of_pages, current_page
   end
